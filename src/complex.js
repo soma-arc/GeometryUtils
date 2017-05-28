@@ -65,6 +65,10 @@ export default class Complex {
         return new Complex(this.re * k, this.im * k);
     }
 
+    arg () {
+        return Math.atan2(this.im, this.re);
+    }
+
     conjugate () {
         return new Complex(this.re, -this.im);
     }
