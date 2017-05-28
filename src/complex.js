@@ -1,7 +1,7 @@
 import assert from 'power-assert';
 
 const SQRT2 = Math.sqrt(2);
-const EPSILON = 0.000001;
+const EPSILON = 0.0000001;
 
 export default class Complex {
     constructor(re, im) {
@@ -40,28 +40,53 @@ export default class Complex {
                            (this.im * c.re - this.re * c.im) / denom);
     }
 
+    static sum (c1, c2) {
+        assert.ok(c1 instanceof Complex);
+        return c1.add(c2);
+    }
+
+    static diff (c1, c2) {
+        assert.ok(c1 instanceof Complex);
+        return c1.sub(c2);
+    }
+
+    static prod (c1, c2) {
+        assert.ok(c1 instanceof Complex);
+        return c1.mult(c2);
+    }
+
+    static quot (c1, c2) {
+        assert.ok(c1 instanceof Complex);
+        return c1.div(c2);
+    }
+
     scale(k) {
+        assert.ok(typeof k === 'number');
         return new Complex(this.re * k, this.im * k);
     }
 
-    conjugate() {
+    conjugate () {
         return new Complex(this.re, -this.im);
     }
 
-    isInfinity() {
-        return (this.re === Number.POSITIVE_INFINITY || this.im === Number.POSITIVE_INFINITY);
+    static conjugate (c) {
+        c.conjugate
     }
 
-    isZero() {
-        return (this.re === 0 && this.im === 0);
-    }
-
-    length() {
+    abs () {
         return Math.sqrt(this.re * this.re + this.im * this.im);
     }
 
-    lengthSq() {
+    static abs (c) {
+        return c.abs();
+    }
+
+    absSq() {
         return this.re * this.re + this.im * this.im;
+    }
+
+    static absSq (c) {
+        retutn c.absSq
     }
 
     eq(c) {
@@ -71,37 +96,65 @@ export default class Complex {
         return (re * re + im * im) < EPSILON;
     }
 
-    static distance(c1, c2) {
-        assert.ok(c1 instanceof Complex);
-        assert.ok(c2 instanceof Complex);
-        return c1.sub(c2).length();
-    }
-
-    static sqrt(c) {
-        assert.ok(c instanceof Complex);
-        if (c.im > 0) {
-            return new Complex(Math.sqrt(c.re + Math.sqrt(c.re * c.re +
-                                                          c.im * c.im)) / SQRT2,
-                               Math.sqrt(-c.re + Math.sqrt(c.re * c.re +
-                                                           c.im * c.im)) / SQRT2);
-        } else if (c.i < 0) {
-            return new Complex(Math.sqrt(c.re + Math.sqrt(c.re * c.re + c.im * c.im)) / SQRT2,
-                               -Math.sqrt(-c.re + Math.sqrt(c.re * c.re + c.im * c.im)) / SQRT2);
-        }
-
-        if (c.re < 0) {
-            return new Complex(0, Math.sqrt(Math.abs(c.re)));
-        }
-
-        return new Complex(Math.sqrt(c.re), 0);
-    }
-
     static eq(c1, c2) {
         assert.ok(c1 instanceof Complex);
         assert.ok(c2 instanceof Complex);
         const re = c1.re - c2.re;
         const im = c1.im - c2.im;
         return (re * re + im * im) < EPSILON;
+    }
+
+    static distance(c1, c2) {
+        assert.ok(c1 instanceof Complex);
+        assert.ok(c2 instanceof Complex);
+        return c1.sub(c2).abs();
+    }
+
+    sq () {
+        return new Complex((this.re * this..re) - (this.im * this..im),
+                           (this.re * this.im) + (this.im * this.re))
+    }
+
+    static sq(c) {
+        return c.sq();
+    }
+
+    sqrt () {
+        if (this.im > 0) {
+            return new Complex(Math.sqrt(this.re + Math.sqrt(this.re * this.re +
+                                                             this.im * this.im)) / SQRT2,
+                               Math.sqrt(-this.re + Math.sqrt(this.re * this.re +
+                                                              this.im * this.im)) / SQRT2);
+        } else if (this.i < 0) {
+            return new Complex(Math.sqrt(this.re + Math.sqrt(this.re * this.re + this.im * this.im)) / SQRT2,
+                               -Math.sqrt(-this.re + Math.sqrt(this.re * this.re + this.im * this.im)) / SQRT2);
+        }
+
+        if (this.re < 0) {
+            return new Complex(0, Math.sqrt(Math.abs(this.re)));
+        }
+
+        return new Complex(Math.sqrt(this.re), 0);
+    }
+
+    static sqrt(c) {
+        return c.sqrt();
+    }
+
+    isInfinity() {
+        return (this.re === Number.POSITIVE_INFINITY || this.im === Number.POSITIVE_INFINITY);
+    }
+
+    isZero() {
+        return (Math.abs(this.re) < EPSILON && Math.abs(this.im) < EPSILON);
+    }
+
+    isReal () {
+        return Math.abs(this.im) < EPSILON;
+    }
+
+    isPureImaginary () {
+        return Math.abs(this.re) < EPSILON;
     }
 
     hasNaN () {
