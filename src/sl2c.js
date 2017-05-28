@@ -21,6 +21,36 @@ export default class SL2C {
                         this.c.mult(m.b).add(this.d.mult(m.d)));
     }
 
+    static prod (m1, m2) {
+        assert.ok(m1 instanceof SL2C);
+        return m1.mult(m2);
+    }
+
+    conjugate (m) {
+        assert.ok(m instanceof SL2C);
+        // m^-1 this m
+        return SL2C.prod(SL2C.prod(m.inverse(), this), m);
+    }
+
+    apply (c) {
+        assert.ok(c instanceof Complex);
+        if (c.isInfinity()) {
+            if (!m.c.isZero()) {
+                return m.a.div(m.c);
+            } else {
+                return Complex.INFINITY;
+            }
+        }
+
+        const nume = m.a.mult(c).add(m.b);
+        const denom = m.c.mult(c).add(m.d);
+        if (denom.isZero()) {
+            return Complex.INFINITY;
+        } else {
+            return nume.div(denom);
+        }
+    }
+
     determinant () {
         return this.a.mult(this.d).sub(this.b.mult(this.c));
     }
@@ -40,8 +70,8 @@ export default class SL2C {
         return this.a.add(this.d);
     }
 
-    get hasNaN () {
-        return this.a.hasNaN || this.b.hasNaN || this.c.hasNaN || this.d.hasNaN;
+    hasNaN () {
+        return this.a.hasNaN() || this.b.hasNaN() || this.c.hasNaN() || this.d.hasNaN();
     }
 
     get linearArray () {

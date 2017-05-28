@@ -104,7 +104,7 @@ export default class Complex {
         return (re * re + im * im) < EPSILON;
     }
 
-    get hasNaN () {
+    hasNaN () {
         return isNaN(this.re) || isNaN(this.im);
     }
 
