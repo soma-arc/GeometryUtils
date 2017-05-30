@@ -90,7 +90,7 @@ export default class Complex {
     }
 
     static absSq (c) {
-        retutn c.absSq
+        retutn c.absSq;
     }
 
     eq(c) {
@@ -116,7 +116,7 @@ export default class Complex {
 
     sq () {
         return new Complex((this.re * this..re) - (this.im * this..im),
-                           (this.re * this.im) + (this.im * this.re))
+                           (this.re * this.im) + (this.im * this.re));
     }
 
     static sq(c) {
