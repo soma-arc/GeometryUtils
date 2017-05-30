@@ -115,7 +115,7 @@ export default class Complex {
     }
 
     sq () {
-        return new Complex((this.re * this..re) - (this.im * this..im),
+        return new Complex((this.re * this.re) - (this.im * this.im),
                            (this.re * this.im) + (this.im * this.re));
     }
 
