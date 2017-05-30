@@ -90,7 +90,7 @@ export default class Complex {
     }
 
     static absSq (c) {
-        retutn c.absSq;
+        return c.absSq();
     }
 
     eq(c) {
