@@ -35,15 +35,15 @@ export default class SL2C {
     apply (c) {
         assert.ok(c instanceof Complex);
         if (c.isInfinity()) {
-            if (!m.c.isZero()) {
-                return m.a.div(m.c);
+            if (!this.c.isZero()) {
+                return this.a.div(this.c);
             } else {
                 return Complex.INFINITY;
             }
         }
 
-        const nume = m.a.mult(c).add(m.b);
-        const denom = m.c.mult(c).add(m.d);
+        const nume = this.a.mult(c).add(this.b);
+        const denom = this.c.mult(c).add(this.d);
         if (denom.isZero()) {
             return Complex.INFINITY;
         } else {
