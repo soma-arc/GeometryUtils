@@ -77,7 +77,11 @@ export default class Complex {
     }
 
     static conjugate (c) {
-        c.conjugate
+        c.conjugate();
+    }
+
+    normalize () {
+        return this.scale(1 / this.abs());
     }
 
     abs () {
@@ -146,6 +150,10 @@ export default class Complex {
 
     static sqrt(c) {
         return c.sqrt();
+    }
+
+    static dot(c1, c2) {
+        return c1.re * c2.re + c1.im * c2.im;
     }
 
     isInfinity() {
