@@ -31,8 +31,11 @@ export default class Complex {
 
     div(c) {
         assert.ok(c instanceof Complex);
+        if (c.isInfinity()) {
+            return Complex.ZERO;
+        }
         const denom = (c.re * c.re) + (c.im * c.im);
-        if (denom === 0) {
+        if (denom < EPSILON) {
             return new Complex(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY);
         }
 
