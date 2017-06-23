@@ -77,7 +77,7 @@ export default class Complex {
     }
 
     static conjugate (c) {
-        c.conjugate();
+        return c.conjugate();
     }
 
     normalize () {
