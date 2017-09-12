@@ -237,7 +237,7 @@ export default class Complex {
                                                              this.im * this.im)) / SQRT2,
                                Math.sqrt(-this.re + Math.sqrt(this.re * this.re +
                                                               this.im * this.im)) / SQRT2);
-        } else if (this.i < 0) {
+        } else if (this.im < 0) {
             return new Complex(Math.sqrt(this.re + Math.sqrt(this.re * this.re + this.im * this.im)) / SQRT2,
                                -Math.sqrt(-this.re + Math.sqrt(this.re * this.re + this.im * this.im)) / SQRT2);
         }
