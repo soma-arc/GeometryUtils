@@ -74,6 +74,28 @@ export default class SL2C {
      *
      * @returns {SL2C}
      */
+    computeFixedPointPlus() {
+        const four = new Complex(4, 0);
+        const tr = this.trace();
+        const num = this.a.sub(this.d).add(tr.mult(tr).sub(four).sqrt());
+        return num.div(this.c.scale(2));
+    }
+
+    /**
+     *
+     * @returns {SL2C}
+     */
+    computeFixedPointMinus() {
+        const four = new Complex(4, 0);
+        const tr = this.trace();
+        const num = this.a.sub(this.d).sub(tr.mult(tr).sub(four).sqrt());
+        return num.div(this.c.scale(2));
+    }
+
+    /**
+     *
+     * @returns {SL2C}
+     */
     determinant () {
         return this.a.mult(this.d).sub(this.b.mult(this.c));
     }
